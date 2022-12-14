@@ -7,11 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.IOException;
 import java.util.List;
 
+import static com.example.jpa.TestCSVRecords.getSingleParsedInvalidRecord;
 import static com.example.jpa.TestCSVRecords.getSingleParsedRecord;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -37,5 +38,12 @@ public class CSVConverterTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    void convertRecordToDto_whenDataIsInvalid_throwsException() throws Exception {
+        CSVParser invalidRecord = getSingleParsedInvalidRecord();
+        CSVRecord wrongFormat = invalidRecord.getRecords().get(0);
 
+        assertThatThrownBy(()-> testee.convertToDto(wrongFormat))
+                .isInstanceOf(InvalidCSVRecordException.class);
+    }
 }

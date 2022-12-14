@@ -20,22 +20,4 @@ public class Application {
     SpringApplication.run(Application.class);
   }
 
-  @Bean
-  @ConditionalOnProperty()
-  @Order(1)
-  public CommandLineRunner insertData(CustomerInsertService customerInsertService){
-    System.out.println("SAVING FROM CSV ==============================================");
-    return args -> {
-      List<CustomerDto> allCustomers = customerInsertService.getAllCustomers("src/main/resources/production.csv");
-      customerInsertService.saveAllCustomers(allCustomers);
-      System.out.println("Saved: " + allCustomers.size());
-    };
-  }
-
-  @Bean
-  @Order(2)
-  public CommandLineRunner selectData(CustomerRepository customerRepository){
-    System.out.println("RETURNING SAVED RECORDS ==============================================");
-    return args -> customerRepository.findAll().forEach(System.out::println);
-  }
 }

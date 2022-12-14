@@ -8,6 +8,11 @@ public class TestCSVRecords {
     private TestCSVRecords() {
     }
 
+    public static CSVParser getSingleParsedInvalidRecord() throws IOException {
+        String headerRow = "id,firstname,lastname\r\n";
+        return CSVParser.parse(headerRow + "One,Jack,Jones\r\n", CSVFormatFactory.CSV_FORMAT());
+    }
+
     public static CSVParser getSingleParsedRecord() throws IOException {
         String headerRow = "id,firstname,lastname\r\n";
         return CSVParser.parse(headerRow + "1,Jack,Jones\r\n", CSVFormatFactory.CSV_FORMAT());
