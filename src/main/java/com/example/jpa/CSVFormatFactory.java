@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CSVFormatFactory {
-    public CSVFormatFactory() {
-    }
 
     @Bean
     public static CSVFormat CSV_FORMAT(){
